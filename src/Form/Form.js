@@ -9,7 +9,7 @@ export default function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res =await fetch(
-      "https://crudcrud.com/api/2a36f5428f3d4727bf3aa7062cf926ba/medDetails",
+      "https://crudcrud.com/api/3e5a65a0c1ca461281d63b060f860f4d/medDetails",
       {
         method: "POST",
         mode:'cors',
