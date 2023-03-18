@@ -1,29 +1,42 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef} from "react";
 import "../Form/Form.css";
+import CartContext from "../store/cart-context";
+export default function Form({setCheck}) {
+  const CartCtx=useContext(CartContext)
 
-export default function Form() {
   const name = useRef("");
   const description = useRef("");
   const price = useRef("");
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res =await fetch(
-      "https://crudcrud.com/api/3e5a65a0c1ca461281d63b060f860f4d/medDetails",
+   setCheck(Math.random())
+    
+    const obj = {
+      id:name.current.value+price.current.value,
+      medName: name.current.value,
+      medDesc: description.current.value,
+      medPrice: price.current.value,
+    };
+    CartCtx.addItem({...obj})
+    const res = await fetch(
+      "https://crudcrud.com/api/56de241651e441b48a550051d60989b9/medDetails",
       {
         method: "POST",
-        mode:'cors',
-        body: JSON.stringify({
-          medName: name.current.value,
-          medDesc: description.current.value,
-          medPrice: price.current.value,
-        }),
-        headers:{
-          'Content-Type':'application/json'
-        }
+        mode: "cors",
+        body: JSON.stringify(obj),
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
-    console.log(res.status)
+     console.log(res.status) 
+    
+    name.current.value=''
+    description.current.value=''
+    price.current.value=''
+     
+
   };
   return (
     <>

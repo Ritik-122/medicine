@@ -1,8 +1,11 @@
-import React from "react";
+import React,{useContext} from "react";
+import CartContext from "../store/cart-context";
 import "./MedList.css";
 export default function MedList(props) {
+  const CartCtx = useContext(CartContext)
   const handleClick = async() => {
-    const res=await fetch("https://crudcrud.com/api/3e5a65a0c1ca461281d63b060f860f4d/cartList", {
+
+    const res=await fetch("https://crudcrud.com/api/56de241651e441b48a550051d60989b9/cartList", {
       method:"POST",
       body: JSON.stringify({
         medName: props.name,
@@ -13,7 +16,7 @@ export default function MedList(props) {
       headers: { "Content-Type": "application/json" },
     });
     console.log(res.status)
-       
+       CartCtx.addItem()
 };
   return (
     <>
